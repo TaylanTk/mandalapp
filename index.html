@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="sacred-bg"><canvas id="bg-canvas"></canvas></div>
+    <div id="sacred-bg"></div>
 
     <div id="main-container">
         <div class="canvas-area">
@@ -27,121 +27,146 @@
                 <p class="subtitle">MANDALA STUDIO</p>
             </div>
 
-            <!-- GENERATE -->
-            <div class="panel-section" style="border:none;padding-bottom:6px;">
-                <button id="generate-btn" class="generate-btn">GENERATE</button>
+            <!-- TAB: BRUSH (mode + sliders + generate) -->
+            <div class="m-tab active" data-tab="brush">
+                <!-- BRUSH MODE -->
+                <div class="panel-section">
+                    <div class="section-label">BRUSH MODE</div>
+                    <div class="mode-picker" id="brush-mode-picker">
+                        <button class="mode-btn active" data-mode="line">LINE</button>
+                        <button class="mode-btn" data-mode="curve">CURVE</button>
+                        <button class="mode-btn" data-mode="dot">DOT</button>
+                        <button class="mode-btn" data-mode="geo">GEO</button>
+                    </div>
+                </div>
+
+                <!-- SLIDERS -->
+                <div class="panel-section sliders-section">
+                    <div class="slider-row">
+                        <span class="slider-label">SIZE</span>
+                        <input type="range" id="brush-slider" min="1" max="20" value="1">
+                        <span class="slider-val" id="brush-val">1</span>
+                    </div>
+                    <div class="slider-row">
+                        <span class="slider-label">OPACITY</span>
+                        <input type="range" id="opacity-slider" min="5" max="100" value="100">
+                        <span class="slider-val" id="opacity-val">100</span>
+                    </div>
+                    <div class="slider-row">
+                        <span class="slider-label">GLOW</span>
+                        <input type="range" id="glow-slider" min="0" max="60" value="15">
+                        <span class="slider-val" id="glow-val">15</span>
+                    </div>
+                    <div class="slider-row">
+                        <span class="slider-label">SYM</span>
+                        <input type="range" id="symmetry-slider" min="2" max="32" value="12">
+                        <span class="slider-val" id="symmetry-val">12</span>
+                    </div>
+                    <div class="slider-row">
+                        <span class="slider-label">DRIFT</span>
+                        <input type="range" id="drift-slider" min="0" max="10" value="0" step="0.5">
+                        <span class="slider-val" id="drift-val">0</span>
+                    </div>
+                </div>
+
+                <!-- GENERATE RANDOM -->
+                <div class="panel-section generate-section">
+                    <button id="generate-btn" class="generate-btn">GENERATE RANDOM</button>
+                </div>
+
+                <!-- ACTIONS -->
+                <div class="panel-section action-group">
+                    <button id="undo-btn" class="action-btn">UNDO</button>
+                    <button id="clear-btn" class="action-btn">CLEAR</button>
+                    <button id="download-btn" class="action-btn primary-btn">SAVE</button>
+                </div>
             </div>
 
-            <!-- BRUSH MODE -->
-            <div class="panel-section">
-                <div class="section-label">BRUSH MODE</div>
-                <div class="mode-picker" id="brush-mode-picker">
-                    <button class="mode-btn active" data-mode="line">LINE</button>
-                    <button class="mode-btn" data-mode="curve">CURVE</button>
-                    <button class="mode-btn" data-mode="dot">DOT</button>
-                    <button class="mode-btn" data-mode="geo">GEO</button>
+            <!-- TAB: COLOR -->
+            <div class="m-tab" data-tab="color">
+                <!-- Brush color -->
+                <div class="panel-section">
+                    <div class="section-label">BRUSH COLOR</div>
+                    <div class="color-area">
+                        <input type="color" id="color-picker" value="#00FF88">
+                        <div class="swatches">
+                            <button class="swatch" style="--c:#FF0055" data-color="#FF0055"></button>
+                            <button class="swatch" style="--c:#FF7700" data-color="#FF7700"></button>
+                            <button class="swatch" style="--c:#FFE000" data-color="#FFE000"></button>
+                            <button class="swatch" style="--c:#00FF88" data-color="#00FF88"></button>
+                            <button class="swatch" style="--c:#00CFFF" data-color="#00CFFF"></button>
+                            <button class="swatch" style="--c:#CC00FF" data-color="#CC00FF"></button>
+                            <button class="swatch" style="--c:#FF00AA" data-color="#FF00AA"></button>
+                            <button class="swatch" style="--c:#ffffff" data-color="#ffffff"></button>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <!-- SLIDERS -->
-            <div class="panel-section sliders-section">
-                <div class="slider-row">
-                    <span class="slider-label">SIZE</span>
-                    <input type="range" id="brush-slider" min="1" max="20" value="3">
-                    <span class="slider-val" id="brush-val">3</span>
-                </div>
-                <div class="slider-row">
-                    <span class="slider-label">OPACITY</span>
-                    <input type="range" id="opacity-slider" min="5" max="100" value="100">
-                    <span class="slider-val" id="opacity-val">100</span>
-                </div>
-                <div class="slider-row">
-                    <span class="slider-label">GLOW</span>
-                    <input type="range" id="glow-slider" min="0" max="60" value="15">
-                    <span class="slider-val" id="glow-val">15</span>
-                </div>
-                <div class="slider-row">
-                    <span class="slider-label">SYM</span>
-                    <input type="range" id="symmetry-slider" min="2" max="32" value="12">
-                    <span class="slider-val" id="symmetry-val">12</span>
-                </div>
-                <div class="slider-row">
-                    <span class="slider-label">DRIFT</span>
-                    <input type="range" id="drift-slider" min="0" max="10" value="0" step="0.5">
-                    <span class="slider-val" id="drift-val">0</span>
-                </div>
-            </div>
-
-            <!-- COLOR -->
-            <div class="panel-section">
-                <div class="section-label">COLOR</div>
-                <div class="color-area">
-                    <input type="color" id="color-picker" value="#00FF88">
+                <!-- Background color -->
+                <div class="panel-section">
+                    <div class="section-label">BACKGROUND</div>
+                    <input type="color" id="bg-color-picker" value="#000000">
                     <div class="swatches">
-                        <button class="swatch" style="--c:#FF0055" data-color="#FF0055"></button>
-                        <button class="swatch" style="--c:#FF7700" data-color="#FF7700"></button>
-                        <button class="swatch" style="--c:#FFE000" data-color="#FFE000"></button>
-                        <button class="swatch" style="--c:#00FF88" data-color="#00FF88"></button>
-                        <button class="swatch" style="--c:#00CFFF" data-color="#00CFFF"></button>
-                        <button class="swatch" style="--c:#CC00FF" data-color="#CC00FF"></button>
-                        <button class="swatch" style="--c:#FF00AA" data-color="#FF00AA"></button>
-                        <button class="swatch" style="--c:#ffffff" data-color="#ffffff"></button>
+                        <button class="swatch bg-swatch" style="--c:#000000" data-color="#000000"></button>
+                        <button class="swatch bg-swatch" style="--c:#2d1b6b" data-color="#2d1b6b"></button>
+                        <button class="swatch bg-swatch" style="--c:#1b3a6b" data-color="#1b3a6b"></button>
+                        <button class="swatch bg-swatch" style="--c:#1b5c4a" data-color="#1b5c4a"></button>
+                        <button class="swatch bg-swatch" style="--c:#6b1b3a" data-color="#6b1b3a"></button>
+                        <button class="swatch bg-swatch" style="--c:#6b4a1b" data-color="#6b4a1b"></button>
+                        <button class="swatch bg-swatch" style="--c:#dce8f5" data-color="#dce8f5"></button>
+                        <button class="swatch bg-swatch" style="--c:#ffffff" data-color="#ffffff"></button>
                     </div>
                 </div>
             </div>
 
-            <!-- FX PRESETS (replaces BLEND) -->
-            <div class="panel-section">
-                <div class="section-label">FX PRESET</div>
-                <div class="fx-grid">
-                    <button class="fx-btn" data-fx="neon">NEON</button>
-                    <button class="fx-btn" data-fx="plasma">PLASMA</button>
-                    <button class="fx-btn" data-fx="dream">DREAM</button>
-                    <button class="fx-btn" data-fx="void">VOID</button>
-                    <button class="fx-btn" data-fx="chrome">CHROME</button>
-                    <button class="fx-btn" data-fx="lava">LAVA</button>
-                    <button class="fx-btn" data-fx="crystal">CRYSTAL</button>
-                    <button class="fx-btn" data-fx="echo">ECHO</button>
+            <!-- TAB: MORE (toggles only) -->
+            <div class="m-tab" data-tab="more">
+                <div class="panel-section toggles-section">
+                    <div class="toggle-row">
+                        <span class="toggle-label" data-tip="Çizerken renk spektrumu boyunca gökkuşağı gibi kayar">Rainbow</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="rainbow-mode">
+                            <span class="track"></span>
+                        </label>
+                    </div>
+                    <div class="toggle-row">
+                        <span class="toggle-label" data-tip="Her çizgiyi dikey olarak yansıtır, mandala simetrisi oluşturur">Mirror</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="mirror-mode" checked>
+                            <span class="track"></span>
+                        </label>
+                    </div>
+                    <div class="toggle-row">
+                        <span class="toggle-label" data-tip="Mandala'yı sürekli döndürür — çizim sırasında kapatın">Auto-Spin</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="auto-spin">
+                            <span class="track"></span>
+                        </label>
+                    </div>
+                    <div class="toggle-row">
+                        <span class="toggle-label" data-tip="Kanvasın parlaklığını nefes alır gibi yavaşça dalgalandırır">Breathing</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="breathing-mode">
+                            <span class="track"></span>
+                        </label>
+                    </div>
                 </div>
             </div>
 
-            <!-- TOGGLES -->
-            <div class="panel-section">
-                <div class="toggle-row">
-                    <span class="toggle-label" data-tip="Çizerken renk spektrumu boyunca gökkuşağı gibi kayar">Rainbow</span>
-                    <label class="toggle-switch">
-                        <input type="checkbox" id="rainbow-mode">
-                        <span class="track"></span>
-                    </label>
-                </div>
-                <div class="toggle-row">
-                    <span class="toggle-label" data-tip="Her çizgiyi dikey olarak yansıtır, mandala simetrisi oluşturur">Mirror</span>
-                    <label class="toggle-switch">
-                        <input type="checkbox" id="mirror-mode" checked>
-                        <span class="track"></span>
-                    </label>
-                </div>
-                <div class="toggle-row">
-                    <span class="toggle-label" data-tip="Mandala'yı sürekli döndürür — çizim sırasında kapatın">Auto-Spin</span>
-                    <label class="toggle-switch">
-                        <input type="checkbox" id="auto-spin">
-                        <span class="track"></span>
-                    </label>
-                </div>
-                <div class="toggle-row">
-                    <span class="toggle-label" data-tip="Kanvasın parlaklığını nefes alır gibi yavaşça dalgalandırır">Breathing</span>
-                    <label class="toggle-switch">
-                        <input type="checkbox" id="breathing-mode">
-                        <span class="track"></span>
-                    </label>
-                </div>
-            </div>
-
-            <!-- ACTIONS -->
-            <div class="panel-section action-group">
-                <button id="undo-btn" class="action-btn">UNDO</button>
-                <button id="clear-btn" class="action-btn">CLEAR</button>
-                <button id="download-btn" class="action-btn primary-btn">SAVE</button>
+            <!-- TAB BAR — visible on mobile only -->
+            <div class="m-tab-bar">
+                <button class="m-tab-btn active" data-for="brush">
+                    <span class="tab-icon">✦</span>
+                    <span class="tab-label">BRUSH</span>
+                </button>
+                <button class="m-tab-btn" data-for="color">
+                    <span class="tab-icon">◉</span>
+                    <span class="tab-label">COLOR</span>
+                </button>
+                <button class="m-tab-btn" data-for="more">
+                    <span class="tab-icon">≡</span>
+                    <span class="tab-label">MORE</span>
+                </button>
             </div>
         </section>
     </div>
